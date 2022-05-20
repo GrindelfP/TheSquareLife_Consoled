@@ -1,4 +1,6 @@
-namespace TheSquareLife_Consoled;
+using TheSquareLife_Consoled.Location;
+
+namespace TheSquareLife_Consoled.MainUtility;
 
 internal class Board
 {

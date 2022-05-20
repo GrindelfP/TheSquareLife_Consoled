@@ -1,3 +1,6 @@
+using TheSquareLife_Consoled.Constants;
+using TheSquareLife_Consoled.Location;
+
 namespace TheSquareLife_Consoled.Entities;
 
 internal class Kuvat : Entity

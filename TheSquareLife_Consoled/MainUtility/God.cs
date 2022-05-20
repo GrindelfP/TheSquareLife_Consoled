@@ -1,7 +1,7 @@
 using TheSquareLife_Consoled.Entities;
 using TheSquareLife_Consoled.Visualization;
 
-namespace TheSquareLife_Consoled;
+namespace TheSquareLife_Consoled.MainUtility;
 
 internal class God
 {

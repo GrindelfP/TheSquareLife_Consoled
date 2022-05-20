@@ -1,7 +1,8 @@
-using TheSquareLife_Consoled.Entities;
-using static TheSquareLife_Consoled.EntitySize;
+using TheSquareLife_Consoled.Location;
+using TheSquareLife_Consoled.MainUtility;
+using static TheSquareLife_Consoled.Constants.EntitySize;
 
-namespace TheSquareLife_Consoled;
+namespace TheSquareLife_Consoled.Entities;
 
 internal class Population
     {
@@ -109,7 +110,7 @@ internal class Population
             var uutisetIndex = new Random().Next(0, areas.Count);
             var uutisetUpperLeftCoordinate = areas[uutisetIndex];
             areas.Remove(uutisetUpperLeftCoordinate);
-            var availibleCoordinates = new HashSet<Coordinate>
+            var availableCoordinates = new HashSet<Coordinate>
             {
                     new Coordinate(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 1),
                     new Coordinate(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 2),
@@ -121,9 +122,9 @@ internal class Population
                     new Coordinate(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 2),
                     new Coordinate(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 3),
             };
-            var availiblePositions = new Position(availibleCoordinates);
+            var availablePositions = new Position(availableCoordinates);
 
-            return new Uutiset(availiblePositions);
+            return new Uutiset(availablePositions);
         }
 
         public Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)

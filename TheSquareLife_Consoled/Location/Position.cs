@@ -1,4 +1,4 @@
-namespace TheSquareLife_Consoled;
+namespace TheSquareLife_Consoled.Location;
 
 internal class Position
 {
