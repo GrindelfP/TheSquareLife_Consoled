@@ -8,7 +8,7 @@ internal class Population
         readonly Uutiset Uutiset;
         readonly List<Kuvahaku> Kuvahakus;
         readonly List<Kuvat> Kuvatus;
-        public List<Coordinate> Coordinates = new();
+        private List<Coordinate> Coordinates = new();
 
         public List<Entity> Entities()
         {
@@ -74,8 +74,8 @@ internal class Population
                 {
                     new Coordinate(coordinate.X + random.Next(1, 4), coordinate.Y + random.Next(1, 4))
                 };
-                var availiblePositions = new Position(availibleCoordinates);
-                kuvahakus.Add(new Kuvahaku(availiblePositions));
+                var availablePositions = new Position(availibleCoordinates);
+                kuvahakus.Add(new Kuvahaku(availablePositions));
                 numberOfKuvahakus--;
             }
 

@@ -8,6 +8,8 @@ internal class Board
     {
         throw new NotImplementedException();
     }
+
+
     public Board(BoardSize boardSize)
     {
         BoardSize = boardSize;

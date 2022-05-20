@@ -2,5 +2,5 @@ namespace TheSquareLife_Consoled.Visualization;
 
 internal abstract class BoardVisualizer : IVisualizer
 {
-    public abstract void Visualize();
+    public virtual void Visualize(int evolutionCycleNumber) { }
 }

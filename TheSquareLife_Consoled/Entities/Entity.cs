@@ -10,7 +10,7 @@ internal abstract class Entity
     public void Validate()
     {
         throw new NotImplementedException(); 
-        // Ask how does it work and how to imple,ent in using C#. What is 'Class<in Entity>'
+        // Ask how does it work and how to implement in using C#. What is 'Class<in Entity>'
     }
     public Position Move(List<Position> positions)
     {
