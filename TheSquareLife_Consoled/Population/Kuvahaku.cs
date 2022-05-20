@@ -1,7 +1,4 @@
-using TheSquareLife_Consoled.Constants;
-using TheSquareLife_Consoled.Location;
-
-namespace TheSquareLife_Consoled.Entities;
+namespace TheSquareLife_Consoled;
 
 internal class Kuvahaku : Entity
 {

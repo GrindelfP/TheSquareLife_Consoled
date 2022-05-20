@@ -1,6 +1,4 @@
-using TheSquareLife_Consoled.Constants;
-
-namespace TheSquareLife_Consoled.Location;
+namespace TheSquareLife_Consoled;
 
 internal class EntityPosition
 {

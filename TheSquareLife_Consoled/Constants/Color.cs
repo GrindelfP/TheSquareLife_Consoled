@@ -1,4 +1,4 @@
-namespace TheSquareLife_Consoled.Constants;
+namespace TheSquareLife_Consoled;
 
 internal enum Color
 {

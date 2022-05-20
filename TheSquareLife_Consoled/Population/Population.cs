@@ -1,8 +1,6 @@
-using TheSquareLife_Consoled.Location;
-using TheSquareLife_Consoled.MainUtility;
-using static TheSquareLife_Consoled.Constants.EntitySize;
+using static TheSquareLife_Consoled.EntitySize;
 
-namespace TheSquareLife_Consoled.Entities;
+namespace TheSquareLife_Consoled;
 
 internal class Population
     {

@@ -1,6 +1,4 @@
-﻿using TheSquareLife_Consoled.MainUtility;
-
-namespace TheSquareLife_Consoled;
+﻿namespace TheSquareLife_Consoled;
 
 internal static class Program 
 {

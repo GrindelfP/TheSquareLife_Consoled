@@ -1,7 +1,4 @@
-using TheSquareLife_Consoled.Entities;
-using TheSquareLife_Consoled.Location;
-
-namespace TheSquareLife_Consoled.MainUtility;
+namespace TheSquareLife_Consoled;
 
 internal static class MovementCalculator
 {
