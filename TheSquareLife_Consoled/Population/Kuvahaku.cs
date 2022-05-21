@@ -1,6 +1,6 @@
 namespace TheSquareLife_Consoled;
 
-internal class Kuvahaku : Entity
+internal sealed class Kuvahaku : Entity
 {
     public override Color Color { get; }
     public override int Size { get; set; }

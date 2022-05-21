@@ -2,57 +2,66 @@ namespace TheSquareLife_Consoled;
 
 internal class Position
 {
-    public HashSet<Coordinate> Coordinates;
+    public readonly HashSet<Coordinate> Coordinates;
 
-    public List<Coordinate> UpperCoordinates()
+    public override bool Equals(object? obj)
+    {
+        var position = obj as Position;
+        if (position == null) return false;
+        if (Coordinates.Count != position.Coordinates.Count) return false;
+        var intersect = Coordinates.Intersect(position.Coordinates);
+        return intersect.Count() == position.Coordinates.Count;
+    }
+
+    private List<Coordinate> UpperCoordinates()
     {
         var min = int.MaxValue;
         foreach (var it in Coordinates)
         {
             min = it.Y < min ? it.Y : min;
         }
-        var resultingCoordinates = Coordinates.Where(it => it.Y == min); 
+        var resultingCoordinates = Coordinates.Where(it => it.Y == min).ToList(); 
         foreach (var it in resultingCoordinates)
         {
             it.ShiftUp();
         }
 
-        return resultingCoordinates.ToList(); // May not work this way of converting. Further investigation required.
+        return resultingCoordinates;
     }
-    
-    public List<Coordinate> BottomCoordinates()
+
+    private List<Coordinate> BottomCoordinates()
     {
         var max = 0;
         foreach (var it in Coordinates)
         {
             max = it.Y > max ? it.Y : max;
         }
-        var resultingCoordinates = Coordinates.Where(it => it.Y == max); 
+        var resultingCoordinates = Coordinates.Where(it => it.Y == max).ToList(); 
         foreach (var it in resultingCoordinates)
         {
             it.ShiftDown();
         }
 
-        return resultingCoordinates.ToList(); // May not work this way of converting. Further investigation required.
+        return resultingCoordinates;
     }
-    
-    public List<Coordinate> LeftCoordinates()
+
+    private List<Coordinate> LeftCoordinates()
     {
         var min = int.MaxValue;
         foreach (var it in Coordinates)
         {
             min = it.Y < min ? it.Y : min;
         }
-        var resultingCoordinates = Coordinates.Where(it => it.Y == min); 
+        var resultingCoordinates = Coordinates.Where(it => it.Y == min).ToList(); 
         foreach (var it in resultingCoordinates)
         {
             it.ShiftLeft();
         }
 
-        return resultingCoordinates.ToList(); // May not work this way of converting. Further investigation required.
+        return resultingCoordinates;
     }
 
-    public List<Coordinate> RightCoordinates()
+    private List<Coordinate> RightCoordinates()
     {
         var max = 0;
         foreach (var it in Coordinates)
@@ -60,13 +69,13 @@ internal class Position
             max = it.Y > max ? it.Y : max;
         }
 
-        var resultingCoordinates = Coordinates.Where(it => it.Y == max);
+        var resultingCoordinates = Coordinates.Where(it => it.Y == max).ToList();
         foreach (var it in resultingCoordinates)
         {
             it.ShiftRight();
         }
 
-        return resultingCoordinates.ToList(); // May not work this way of converting. Further investigation required.
+        return resultingCoordinates;
     }
 
     public List<Coordinate> UpperLeftCoordinates() =>
@@ -78,8 +87,8 @@ internal class Position
     public List<Coordinate> BottomRightCoordinates() =>
         CornerShiftCoordinates(BottomCoordinates(), RightCoordinates(), false);
 
-    private List<Coordinate> CornerShiftCoordinates(List<Coordinate> horizontalCoordinates,
-        List<Coordinate> verticalCoordinates, bool shiftLeft)
+    private static List<Coordinate> CornerShiftCoordinates(List<Coordinate> horizontalCoordinates,
+        IReadOnlyList<Coordinate> verticalCoordinates, bool shiftLeft)
     {
         var corner = new Coordinate(verticalCoordinates[0].X, horizontalCoordinates[0].Y);
         var coordinates = new HashSet<Coordinate>();

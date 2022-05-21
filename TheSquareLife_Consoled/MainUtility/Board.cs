@@ -18,8 +18,8 @@ internal class Board
 
 internal class BoardSize
 {
-    public static int NumberOfRows;
-    public static int NumberOfColumns;
+    public readonly int NumberOfRows;
+    public readonly int NumberOfColumns;
 
     public BoardSize(int numberOfRows, int numberOfColumns)
     {

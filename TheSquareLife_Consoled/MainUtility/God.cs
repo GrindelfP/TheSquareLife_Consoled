@@ -21,14 +21,14 @@ internal class God
     private void EvolutionCycle(int evolutionCycleNumber) // Not completed yet! Or it is done?
     {
         // 1. command entities to move        
-        _population.Entities().ForEach(entity =>
-        {
-            if (entity.IsAlive)
-            {
-                var positionsForMove = MovementCalculator.PossibleMoveCoordinates(entity, _board);
-                entity.Move(positionsForMove);
-            }
-        });
+        // _population.Entities().ForEach(entity =>
+        // {
+        //     if (entity.IsAlive)
+        //     {
+        //         var positionsForMove = MovementCalculator.PossibleMoveCoordinates(entity, _board);
+        //         Entity.Move(positionsForMove);
+        //     }
+        // });
         UpdateBoard(evolutionCycleNumber);
         // 2. check results of the movement (overlapping that give birth or result in entity's death)
         var overlappingEntities = OverlappingEntities();

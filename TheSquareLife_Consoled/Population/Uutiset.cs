@@ -1,6 +1,6 @@
 namespace TheSquareLife_Consoled;
 
-internal class Uutiset : Entity
+internal sealed class Uutiset : Entity
 {
     public override Color Color { get; }
     public override int Size { get; set; }

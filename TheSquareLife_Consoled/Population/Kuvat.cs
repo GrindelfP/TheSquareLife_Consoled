@@ -1,6 +1,6 @@
 namespace TheSquareLife_Consoled;
 
-internal class Kuvat : Entity
+internal sealed class Kuvat : Entity
 {
     public override Color Color { get; }
     public override int Size { get; set; }

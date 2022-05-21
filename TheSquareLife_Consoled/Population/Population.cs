@@ -4,28 +4,28 @@ namespace TheSquareLife_Consoled;
 
 internal class Population
     {
-        readonly Uutiset Uutiset;
-        readonly List<Kuvahaku> Kuvahakus;
-        readonly List<Kuvat> Kuvatus;
-        private List<Coordinate> Coordinates = new();
+        private readonly Uutiset _uutiset;
+        private readonly List<Kuvahaku> _kuvahakus;
+        private readonly List<Kuvat> _kuvatus;
+        private readonly List<Coordinate> _coordinates = new();
 
         public List<Entity> Entities()
         {
-            var entities = new List<Entity> { Uutiset };
-            entities.AddRange(Kuvahakus);
-            entities.AddRange(Kuvatus);
+            var entities = new List<Entity> { _uutiset };
+            entities.AddRange(_kuvahakus);
+            entities.AddRange(_kuvatus);
 
             return entities;
         }
 
         public List<EntityPosition> EntityPositions()
         {
-            var positions = new List<EntityPosition> { new EntityPosition(Uutiset.Position, Uutiset.Color) };
-            Kuvahakus.ForEach(it =>
+            var positions = new List<EntityPosition> { new EntityPosition(_uutiset.Position, _uutiset.Color) };
+            _kuvahakus.ForEach(it =>
             {
                 positions.Add(new EntityPosition(it.Position, it.Color));
             });
-            Kuvatus.ForEach(it =>
+            _kuvatus.ForEach(it =>
             {
                 positions.Add(new EntityPosition(it.Position, it.Color));
             });
@@ -33,30 +33,28 @@ internal class Population
             return positions;
         }
 
-        public Population GeneratePopulation(int numberOfKuvahakus, int numberOfuvatus, BoardSize sizeOfBoard)
+        public Population GeneratePopulation(int numberOfKuvahakus, int numberOfKuvatus, BoardSize sizeOfBoard)
         {
             var minSize = KuvahakuSize + KuvatSize + UutisetSize + 2;
-            if (BoardSize.NumberOfRows < minSize) 
+            if (sizeOfBoard.NumberOfRows < minSize) 
             { 
                 throw new Exception($"Board height must be greater than {minSize}"); 
             }
-            if (BoardSize.NumberOfColumns < minSize) 
+            if (sizeOfBoard.NumberOfColumns < minSize) 
             { 
                 throw new Exception($"Board length must be greater than {minSize}"); 
             }
-            var numberOfEntities = 1 + numberOfKuvahakus + numberOfuvatus; // This and following is not used! Why? Check!
-            var numberOfFreeAreas = (BoardSize.NumberOfRows * BoardSize.NumberOfColumns) / (MinEntityAreaSize * MinEntityAreaSize);
             var areas = new List<Coordinate>();
-            for (var rowIndex = 1; rowIndex < BoardSize.NumberOfRows; rowIndex += MinEntityAreaSize)
+            for (var rowIndex = 1; rowIndex < sizeOfBoard.NumberOfRows; rowIndex += MinEntityAreaSize)
             {
-                for (var positionInRow = 1; positionInRow < BoardSize.NumberOfColumns; positionInRow += MinEntityAreaSize)
+                for (var positionInRow = 1; positionInRow < sizeOfBoard.NumberOfColumns; positionInRow += MinEntityAreaSize)
                 {
                     areas.Add(new Coordinate(positionInRow, rowIndex));
                 }
             }
             var uutiset = InitUutiset(areas);
             var kuvahakus = InitKuvahakus(numberOfKuvahakus, areas);
-            var kuvatus = InitKuvatus(numberOfuvatus, areas);
+            var kuvatus = InitKuvatus(numberOfKuvatus, areas);
 
             return new Population(uutiset, kuvahakus, kuvatus);
         }
@@ -69,11 +67,11 @@ internal class Population
             {
                 var coordinate = areas[random.Next(0, areas.Count)];
                 areas.Remove(coordinate);
-                var availibleCoordinates = new HashSet<Coordinate>
+                var availableCoordinates = new HashSet<Coordinate>
                 {
-                    new Coordinate(coordinate.X + random.Next(1, 4), coordinate.Y + random.Next(1, 4))
+                    new(coordinate.X + random.Next(1, 4), coordinate.Y + random.Next(1, 4))
                 };
-                var availablePositions = new Position(availibleCoordinates);
+                var availablePositions = new Position(availableCoordinates);
                 kuvahakus.Add(new Kuvahaku(availablePositions));
                 numberOfKuvahakus--;
             }
@@ -89,15 +87,15 @@ internal class Population
                 var coordinate = areas[random.Next(0, areas.Count)];
                 areas.Remove(coordinate);
                 var shiftedCorner = new Coordinate(random.Next(0, 2), random.Next(0, 2));
-                var availibleCoordinates = new HashSet<Coordinate>
+                var availableCoordinates = new HashSet<Coordinate>
                 {
-                    new Coordinate(shiftedCorner.X + 1, shiftedCorner.Y + 1),
-                    new Coordinate(shiftedCorner.X + 1, shiftedCorner.Y + 2),
-                    new Coordinate(shiftedCorner.X + 2, shiftedCorner.Y + 1),
-                    new Coordinate(shiftedCorner.X + 2, shiftedCorner.Y + 2)
+                    new(shiftedCorner.X + 1, shiftedCorner.Y + 1),
+                    new(shiftedCorner.X + 1, shiftedCorner.Y + 2),
+                    new(shiftedCorner.X + 2, shiftedCorner.Y + 1),
+                    new(shiftedCorner.X + 2, shiftedCorner.Y + 2)
                 };
-                var availiblePositions = new Position(availibleCoordinates);
-                kuvatus.Add(new Kuvat(availiblePositions));
+                var availablePositions = new Position(availableCoordinates);
+                kuvatus.Add(new Kuvat(availablePositions));
                 numberOfKuvatus--;
             }
 
@@ -110,37 +108,37 @@ internal class Population
             areas.Remove(uutisetUpperLeftCoordinate);
             var availableCoordinates = new HashSet<Coordinate>
             {
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 1),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 2),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 3),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 2, uutisetUpperLeftCoordinate.Y + 1),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 2, uutisetUpperLeftCoordinate.Y + 2),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 2, uutisetUpperLeftCoordinate.Y + 3),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 1),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 2),
-                    new Coordinate(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 3),
+                    new(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 1),
+                    new(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 2),
+                    new(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 3),
+                    new(uutisetUpperLeftCoordinate.X + 2, uutisetUpperLeftCoordinate.Y + 1),
+                    new(uutisetUpperLeftCoordinate.X + 2, uutisetUpperLeftCoordinate.Y + 2),
+                    new(uutisetUpperLeftCoordinate.X + 2, uutisetUpperLeftCoordinate.Y + 3),
+                    new(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 1),
+                    new(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 2),
+                    new(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 3),
             };
             var availablePositions = new Position(availableCoordinates);
 
             return new Uutiset(availablePositions);
         }
 
-        public Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)
+        private Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)
         {
-            Uutiset = uutiset;
-            Kuvahakus = kuvahakus;
-            Kuvatus = kuvatus;
-            Coordinates.AddRange(Uutiset.Position.Coordinates);
-            Kuvahakus.ForEach(it =>
+            _uutiset = uutiset;
+            _kuvahakus = kuvahakus;
+            _kuvatus = kuvatus;
+            _coordinates.AddRange(_uutiset.Position.Coordinates);
+            _kuvahakus.ForEach(it =>
             {
-               Coordinates.AddRange(it.Position.Coordinates);
+               _coordinates.AddRange(it.Position.Coordinates);
             });
-            Kuvatus.ForEach(it =>
+            _kuvatus.ForEach(it =>
             {
-                Coordinates.AddRange(it.Position.Coordinates);
+                _coordinates.AddRange(it.Position.Coordinates);
             });
-            var setOfCoordinates = new HashSet<Coordinate>(Coordinates);
-            if (Coordinates.Count != setOfCoordinates.Count)
+            var setOfCoordinates = new HashSet<Coordinate>(_coordinates);
+            if (_coordinates.Count != setOfCoordinates.Count)
             {
                 throw new Exception("There are entities with overlapping positions.");
             }
