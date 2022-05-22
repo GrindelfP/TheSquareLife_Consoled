@@ -1,8 +1,8 @@
 namespace TheSquareLife_Consoled;
 
-internal abstract class Entity
+internal abstract partial class Entity
 {
-    public Position Position { get; }
+    public Position Position { get; private set; }
     public bool IsAlive = true;
     private Guid Id { get; }
     public abstract Color Color { get; }
@@ -13,13 +13,13 @@ internal abstract class Entity
         throw new NotImplementedException(); 
         // Ask how does it work and how to implement in using C#. What is 'Class<in Entity>'
     }
-    public static Position Move(List<Position> positions)
+    public void Move()
     {
-        var random = new Random();
-        var position = positions[random.Next(0, positions.Count)];
-        return position;
+        var positions = Position.PossibleMoveCoordinates();
+        var randomElementIndex = new Random().Next(0, positions.Count);
+        Position = positions[randomElementIndex];
     }
-
+    
     protected Entity(Position position)
     {
         Position = position;

@@ -1,11 +1,17 @@
 namespace TheSquareLife_Consoled.Visualization;
 
-internal class ConsoleBoardVisualizer : BoardVisualizer
+internal class ConsoleBoardVisualizer : IVisualizer
 {
-    public override void Visualize(int evolutionCycleNumber)
+    private readonly Board _board;
+    public void Visualize(int evolutionCycleNumber, string? extraMessage)
     {
         var message = evolutionCycleNumber == -1 ? "Evolution haven't started yet!" : $"Evolution cycle {evolutionCycleNumber + 1}";
         Console.WriteLine(message);
-        //Console.WriteLine(Board.ToString());
+        Console.WriteLine(_board.ToString());
+    }
+
+    public ConsoleBoardVisualizer(Board board)
+    {
+        _board = board;
     }
 }

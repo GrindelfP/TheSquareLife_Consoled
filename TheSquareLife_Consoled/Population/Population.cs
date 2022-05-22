@@ -9,7 +9,7 @@ internal class Population
         private readonly List<Kuvat> _kuvatus;
         private readonly List<Coordinate> _coordinates = new();
 
-        public List<Entity> Entities()
+        private List<Entity> AllEntities()
         {
             var entities = new List<Entity> { _uutiset };
             entities.AddRange(_kuvahakus);
@@ -17,6 +17,37 @@ internal class Population
 
             return entities;
         }
+
+        public List<Entity> AliveEntities()
+        {
+            var entities = new List<Entity> { _uutiset };
+            entities.AddRange(_kuvahakus);
+            entities.AddRange(_kuvatus);
+            var aliveEntities = new List<Entity>();
+            entities.ForEach(it =>
+            {
+                if (it.IsAlive) aliveEntities.Add(it);
+            });
+            return aliveEntities;
+        }
+
+        public List<EntityPosition> AliveEntitiesPositions()
+        {
+            var positions = new List<EntityPosition>();
+            if (_uutiset.IsAlive) positions.Add(new EntityPosition(_uutiset.Position, _uutiset.Color));
+            _kuvatus.ForEach(kuvat =>
+            {
+                if (kuvat.IsAlive) positions.Add(new EntityPosition(kuvat.Position, kuvat.Color));
+            });
+            _kuvahakus.ForEach(kuvahaku =>
+            {
+                if (kuvahaku.IsAlive) positions.Add(new EntityPosition(kuvahaku.Position, kuvahaku.Color));
+            });
+            
+            return positions;
+        }
+
+        public int Size() => AliveEntities().Count;
 
         public List<EntityPosition> EntityPositions()
         {
@@ -33,21 +64,21 @@ internal class Population
             return positions;
         }
 
-        public Population GeneratePopulation(int numberOfKuvahakus, int numberOfKuvatus, BoardSize sizeOfBoard)
+        public static Population GeneratePopulation(int numberOfKuvahakus, int numberOfKuvatus, Board board)
         {
             var minSize = KuvahakuSize + KuvatSize + UutisetSize + 2;
-            if (sizeOfBoard.NumberOfRows < minSize) 
+            if (board.BoardSize.NumberOfRows < minSize) 
             { 
                 throw new Exception($"Board height must be greater than {minSize}"); 
             }
-            if (sizeOfBoard.NumberOfColumns < minSize) 
+            if (board.BoardSize.NumberOfColumns < minSize) 
             { 
                 throw new Exception($"Board length must be greater than {minSize}"); 
             }
             var areas = new List<Coordinate>();
-            for (var rowIndex = 1; rowIndex < sizeOfBoard.NumberOfRows; rowIndex += MinEntityAreaSize)
+            for (var rowIndex = 1; rowIndex < board.BoardSize.NumberOfRows; rowIndex += MinEntityAreaSize)
             {
-                for (var positionInRow = 1; positionInRow < sizeOfBoard.NumberOfColumns; positionInRow += MinEntityAreaSize)
+                for (var positionInRow = 1; positionInRow < board.BoardSize.NumberOfColumns; positionInRow += MinEntityAreaSize)
                 {
                     areas.Add(new Coordinate(positionInRow, rowIndex));
                 }
@@ -123,7 +154,7 @@ internal class Population
             return new Uutiset(availablePositions);
         }
 
-        private Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)
+        public Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)
         {
             _uutiset = uutiset;
             _kuvahakus = kuvahakus;

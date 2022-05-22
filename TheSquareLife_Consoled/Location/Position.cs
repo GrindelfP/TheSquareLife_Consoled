@@ -13,6 +13,11 @@ internal class Position
         return intersect.Count() == position.Coordinates.Count;
     }
 
+    public List<Position> PossibleMoveCoordinates()
+    {
+        throw new NotImplementedException();
+    }
+
     private List<Coordinate> UpperCoordinates()
     {
         var min = int.MaxValue;
