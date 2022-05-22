@@ -3,7 +3,8 @@ namespace TheSquareLife_Consoled;
 internal class Position
 {
     public readonly HashSet<Coordinate> Coordinates;
-
+    private readonly Board _board;
+    
     public override bool Equals(object? obj)
     {
         var position = obj as Position;
@@ -13,102 +14,52 @@ internal class Position
         return intersect.Count() == position.Coordinates.Count;
     }
 
+    private Position? ShapeShifter(int horizontal, int vertical)
+    {
+        var newCoordinates = Coordinates.Select(it => new Coordinate(it.X + horizontal, it.Y + vertical)).ToList();
+        var newCoordinatesFiltered = new HashSet<Coordinate>();
+        newCoordinates.ForEach(it =>
+        {
+            if (it.OnBoard(_board) && (_board.tileIsEmpty(it) || Coordinates.Contains(it)))
+                newCoordinatesFiltered.Add(it);
+        });
+        return newCoordinatesFiltered.Count == Coordinates.Count ? new Position(newCoordinatesFiltered, _board) : null;
+    }
+    
     public List<Position> PossibleMoveCoordinates()
     {
-        throw new NotImplementedException();
+        var list = new List<Position>();
+        
+        var moveUpPosition = ShapeShifter(0, -1);
+        if (moveUpPosition != null) list.Add(moveUpPosition);
+        
+        var moveDownPosition = ShapeShifter(0, +1);
+        if (moveDownPosition != null) list.Add(moveDownPosition);
+
+        var moveLeftPosition = ShapeShifter(-1, 0);
+        if (moveLeftPosition != null) list.Add(moveLeftPosition);
+
+        var moveRightPosition = ShapeShifter(+1, 0);
+        if (moveRightPosition != null) list.Add(moveRightPosition);
+
+        var moveLeftUpPosition = ShapeShifter(-1, -1);
+        if (moveLeftUpPosition != null) list.Add(moveLeftUpPosition);
+
+        var moveLeftDownPosition = ShapeShifter(-1, +1);
+        if (moveLeftDownPosition != null) list.Add(moveLeftDownPosition);
+
+        var moveRightUpPosition = ShapeShifter(+1, -1);
+        if (moveRightUpPosition != null) list.Add(moveRightUpPosition);
+
+        var moveRightDownPosition = ShapeShifter(+1, +1);
+        if (moveRightDownPosition != null) list.Add(moveRightDownPosition);
+
+        return list;
     }
-
-    private List<Coordinate> UpperCoordinates()
-    {
-        var min = int.MaxValue;
-        foreach (var it in Coordinates)
-        {
-            min = it.Y < min ? it.Y : min;
-        }
-        var resultingCoordinates = Coordinates.Where(it => it.Y == min).ToList(); 
-        foreach (var it in resultingCoordinates)
-        {
-            it.ShiftUp();
-        }
-
-        return resultingCoordinates;
-    }
-
-    private List<Coordinate> BottomCoordinates()
-    {
-        var max = 0;
-        foreach (var it in Coordinates)
-        {
-            max = it.Y > max ? it.Y : max;
-        }
-        var resultingCoordinates = Coordinates.Where(it => it.Y == max).ToList(); 
-        foreach (var it in resultingCoordinates)
-        {
-            it.ShiftDown();
-        }
-
-        return resultingCoordinates;
-    }
-
-    private List<Coordinate> LeftCoordinates()
-    {
-        var min = int.MaxValue;
-        foreach (var it in Coordinates)
-        {
-            min = it.Y < min ? it.Y : min;
-        }
-        var resultingCoordinates = Coordinates.Where(it => it.Y == min).ToList(); 
-        foreach (var it in resultingCoordinates)
-        {
-            it.ShiftLeft();
-        }
-
-        return resultingCoordinates;
-    }
-
-    private List<Coordinate> RightCoordinates()
-    {
-        var max = 0;
-        foreach (var it in Coordinates)
-        {
-            max = it.Y > max ? it.Y : max;
-        }
-
-        var resultingCoordinates = Coordinates.Where(it => it.Y == max).ToList();
-        foreach (var it in resultingCoordinates)
-        {
-            it.ShiftRight();
-        }
-
-        return resultingCoordinates;
-    }
-
-    public List<Coordinate> UpperLeftCoordinates() =>
-        CornerShiftCoordinates(UpperCoordinates(), LeftCoordinates(), true);
-    public List<Coordinate> BottomLeftCoordinates() =>
-        CornerShiftCoordinates(BottomCoordinates(), LeftCoordinates(), true);
-    public List<Coordinate> UpperRightCoordinates() =>
-        CornerShiftCoordinates(UpperCoordinates(), RightCoordinates(), false);
-    public List<Coordinate> BottomRightCoordinates() =>
-        CornerShiftCoordinates(BottomCoordinates(), RightCoordinates(), false);
-
-    private static List<Coordinate> CornerShiftCoordinates(List<Coordinate> horizontalCoordinates,
-        IReadOnlyList<Coordinate> verticalCoordinates, bool shiftLeft)
-    {
-        var corner = new Coordinate(verticalCoordinates[0].X, horizontalCoordinates[0].Y);
-        var coordinates = new HashSet<Coordinate>();
-        foreach (var horizontalCoordinate in horizontalCoordinates)
-        {
-            coordinates.Add(horizontalCoordinate);
-        }
-        coordinates.Add(corner);
-        var resultingCoordinates = coordinates.ToList().OrderBy(it => it.X).ToList();
-        return shiftLeft ? resultingCoordinates.GetRange(0, coordinates.Count - 1) : 
-            resultingCoordinates.GetRange(1, coordinates.Count);
-    }
-
-    protected internal Position(HashSet<Coordinate> coordinates)
+    
+    protected internal Position(HashSet<Coordinate> coordinates, Board? board = null)
     {
         Coordinates = coordinates;
+        if (board != null) _board = board;
     }
 }

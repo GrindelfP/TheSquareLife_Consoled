@@ -9,15 +9,6 @@ internal class Population
         private readonly List<Kuvat> _kuvatus;
         private readonly List<Coordinate> _coordinates = new();
 
-        private List<Entity> AllEntities()
-        {
-            var entities = new List<Entity> { _uutiset };
-            entities.AddRange(_kuvahakus);
-            entities.AddRange(_kuvatus);
-
-            return entities;
-        }
-
         public List<Entity> AliveEntities()
         {
             var entities = new List<Entity> { _uutiset };

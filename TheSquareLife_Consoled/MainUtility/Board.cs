@@ -14,6 +14,11 @@ internal class Board
     {
         BoardSize = boardSize;
     }
+
+    public bool tileIsEmpty(Coordinate it)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 internal class BoardSize
