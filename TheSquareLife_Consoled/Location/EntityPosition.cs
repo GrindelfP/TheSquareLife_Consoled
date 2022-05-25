@@ -2,11 +2,11 @@ namespace TheSquareLife_Consoled;
 
 internal class EntityPosition
 {
-    private Position _position;
-    private Color _color;
-    public EntityPosition(Position position, Color color)
+    internal readonly Position Position;
+    internal readonly string Color;
+    public EntityPosition(Position position, string color)
     {
-        _position = position;
-        _color = color;
+        Position = position;
+        Color = color;
     }
 }

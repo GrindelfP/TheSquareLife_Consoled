@@ -1,6 +1,6 @@
 namespace TheSquareLife_Consoled;
 
-internal static class EntitySize
+internal struct EntitySize
 {
     public const int KuvahakuSize = 1;
     public const int KuvatSize = 2;

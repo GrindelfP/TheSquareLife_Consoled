@@ -6,6 +6,7 @@ internal class Coordinate
     public readonly int X;
     public readonly int Y;
 
+    /*
     public override bool Equals(object? obj)
     {
         var coordinate = obj as Coordinate;
@@ -15,6 +16,12 @@ internal class Coordinate
         }
         return X == coordinate.X && Y == coordinate.Y;
     }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+    */
 
     public bool OnBoard(Board board) => 0 <= X && X <= board.BoardSize.NumberOfColumns && 0 <= Y && Y <= board.BoardSize.NumberOfRows;
     

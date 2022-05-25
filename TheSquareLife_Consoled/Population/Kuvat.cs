@@ -1,13 +1,16 @@
+using static TheSquareLife_Consoled.Colors;
+
 namespace TheSquareLife_Consoled;
 
 internal sealed class Kuvat : Entity
 {
-    public override Color Color { get; }
+    private const string Type = "Kuvat";
+    public override string Color { get; }
     public override int Size { get; set; }
     public Kuvat(Position position) : base(position)
     {
-        Color = Color.Green;
+        Color = Green;
         Size = EntitySize.KuvahakuSize;
-        Validate();
+        Validate(Type, Size * Size);
     }
 }

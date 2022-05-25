@@ -1,13 +1,16 @@
+using static TheSquareLife_Consoled.Colors;
+
 namespace TheSquareLife_Consoled;
 
 internal sealed class Kuvahaku : Entity
 {
-    public override Color Color { get; }
+    private const string Type = "Kuvahaku";
+    public override string Color { get; }
     public override int Size { get; set; }
     public Kuvahaku(Position position) : base(position)
     {
-        Color = Color.Blue;
+        Color = Blue;
         Size = EntitySize.KuvahakuSize;
-        Validate();
+        Validate(Type, Size * Size);
     }
 }

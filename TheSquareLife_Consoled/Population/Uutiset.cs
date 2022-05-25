@@ -1,13 +1,15 @@
+using static TheSquareLife_Consoled.Colors;
 namespace TheSquareLife_Consoled;
 
 internal sealed class Uutiset : Entity
 {
-    public override Color Color { get; }
+    private const string Type = "Uutiset";
+    public override string Color { get; }
     public override int Size { get; set; }
     public Uutiset(Position position) : base(position)
     {
-        Color = Color.Red;
+        Color = Red;
         Size = EntitySize.KuvahakuSize;
-        Validate();
+        Validate(Type, Size * Size);
     }
 }

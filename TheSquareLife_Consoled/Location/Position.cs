@@ -5,6 +5,7 @@ internal class Position
     public readonly HashSet<Coordinate> Coordinates;
     private readonly Board _board;
     
+    /*
     public override bool Equals(object? obj)
     {
         var position = obj as Position;
@@ -13,6 +14,7 @@ internal class Position
         var intersect = Coordinates.Intersect(position.Coordinates);
         return intersect.Count() == position.Coordinates.Count;
     }
+    */
 
     private Position? ShapeShifter(int horizontal, int vertical)
     {
@@ -20,7 +22,7 @@ internal class Position
         var newCoordinatesFiltered = new HashSet<Coordinate>();
         newCoordinates.ForEach(it =>
         {
-            if (it.OnBoard(_board) && (_board.tileIsEmpty(it) || Coordinates.Contains(it)))
+            if (it.OnBoard(_board) && (_board.TileIsEmpty(it) || Coordinates.Contains(it)))
                 newCoordinatesFiltered.Add(it);
         });
         return newCoordinatesFiltered.Count == Coordinates.Count ? new Position(newCoordinatesFiltered, _board) : null;
@@ -57,9 +59,9 @@ internal class Position
         return list;
     }
     
-    protected internal Position(HashSet<Coordinate> coordinates, Board? board = null)
+    protected internal Position(HashSet<Coordinate> coordinates, Board board)
     {
         Coordinates = coordinates;
-        if (board != null) _board = board;
+        _board = board;
     }
 }

@@ -9,6 +9,26 @@ internal class God
     private readonly IVisualizer _visualizer;
     private readonly int _numberOfCycles;
 
+    private static int NumberOfCycles()
+    {
+        Console.Write("How many cycles should take place -> ");
+        var numberOfCycles = 0;
+        var flag = true;
+        while (flag)
+        {
+            try
+            {
+                numberOfCycles = Convert.ToInt32(Console.ReadLine());
+                flag = false;
+            }
+            catch
+            {
+                Console.WriteLine("You are supposed to use integers!");
+            }
+        }
+        return numberOfCycles;
+    }
+
     private void StartEvolution()
     {
         var iteration = _numberOfCycles;
@@ -39,16 +59,16 @@ internal class God
         }
         
         // 2.2 procreation
-        _population.AliveEntities().ForEach(ProcessProcreation);
+        // _population.AliveEntities().ForEach(ProcessProcreation); TODO: implement procreation
     }
 
-    private void ProcessProcreation(Entity entity) // TODO: create OverlapTogether and NeighbourTogether, create message
+    /*
+    private void ProcessProcreation(Entity entity)
     {
         // Guardian: we do not check procreation if the entity is not alive (this value can be changed after we built the list of alive entities)
         if (!entity.IsAlive) return;
-
-        throw new NotImplementedException();
     }
+    */
 
     private void ProcessSwallowing(Entity entity)
     {
@@ -110,9 +130,9 @@ internal class God
         _visualizer.Visualize(evolutionCycleNumber, extraMessage);
     }
     
-    public God(int numberOfCycles)
+    public God()
     {
-        _numberOfCycles = numberOfCycles;
+        _numberOfCycles = NumberOfCycles();
         _board = new Board(new BoardSize(40, 40));
         _population = Population.GeneratePopulation(25, 20, _board);
         _visualizer = new ConsoleBoardVisualizer(_board);

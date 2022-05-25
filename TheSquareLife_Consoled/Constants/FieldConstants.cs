@@ -1,7 +1,7 @@
 namespace TheSquareLife_Consoled;
 
-public static class FieldConstants
+internal struct FieldConstants
 {
-    public static string Tile = "██";
-    
+    public const string Tile = "██";
+    public const string Gap = " ";
 }

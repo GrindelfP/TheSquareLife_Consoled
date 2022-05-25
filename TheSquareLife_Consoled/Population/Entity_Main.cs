@@ -5,13 +5,13 @@ internal abstract partial class Entity
     public Position Position { get; private set; }
     public bool IsAlive = true;
     private Guid Id { get; }
-    public abstract Color Color { get; }
+    public abstract string Color { get; }
     public abstract int Size { get; set; }
 
-    protected static void Validate()
+    protected void Validate(string entityType, int area)
     {
-        throw new NotImplementedException(); 
-        // Ask how does it work and how to implement in using C#. What is 'Class<in Entity>'
+        if (Position.Coordinates.Count != area) 
+            throw new ArgumentException($"{entityType} must occupy {area} coordinates, number of supplied coordinates is {Position.Coordinates.Count}");
     }
     public void Move()
     {

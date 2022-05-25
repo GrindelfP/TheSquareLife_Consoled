@@ -74,14 +74,14 @@ internal class Population
                     areas.Add(new Coordinate(positionInRow, rowIndex));
                 }
             }
-            var uutiset = InitUutiset(areas);
-            var kuvahakus = InitKuvahakus(numberOfKuvahakus, areas);
-            var kuvatus = InitKuvatus(numberOfKuvatus, areas);
+            var uutiset = InitUutiset(areas, board);
+            var kuvahakus = InitKuvahakus(numberOfKuvahakus, areas, board);
+            var kuvatus = InitKuvatus(numberOfKuvatus, areas, board);
 
             return new Population(uutiset, kuvahakus, kuvatus);
         }
 
-        private static List<Kuvahaku> InitKuvahakus(int numberOfKuvahakus, List<Coordinate> areas)
+        private static List<Kuvahaku> InitKuvahakus(int numberOfKuvahakus, List<Coordinate> areas, Board board)
         {
             var random = new Random();
             var kuvahakus = new List<Kuvahaku>();
@@ -93,14 +93,14 @@ internal class Population
                 {
                     new(coordinate.X + random.Next(1, 4), coordinate.Y + random.Next(1, 4))
                 };
-                var availablePositions = new Position(availableCoordinates);
+                var availablePositions = new Position(availableCoordinates, board);
                 kuvahakus.Add(new Kuvahaku(availablePositions));
                 numberOfKuvahakus--;
             }
 
             return kuvahakus;
         }
-        private static List<Kuvat> InitKuvatus(int numberOfKuvatus, List<Coordinate> areas)
+        private static List<Kuvat> InitKuvatus(int numberOfKuvatus, List<Coordinate> areas, Board board)
         {
             var random = new Random();
             var kuvatus = new List<Kuvat>();
@@ -116,14 +116,14 @@ internal class Population
                     new(shiftedCorner.X + 2, shiftedCorner.Y + 1),
                     new(shiftedCorner.X + 2, shiftedCorner.Y + 2)
                 };
-                var availablePositions = new Position(availableCoordinates);
+                var availablePositions = new Position(availableCoordinates, board);
                 kuvatus.Add(new Kuvat(availablePositions));
                 numberOfKuvatus--;
             }
 
             return kuvatus;
         }
-        private static Uutiset InitUutiset(List<Coordinate> areas)
+        private static Uutiset InitUutiset(List<Coordinate> areas, Board board)
         {
             var uutisetIndex = new Random().Next(0, areas.Count);
             var uutisetUpperLeftCoordinate = areas[uutisetIndex];
@@ -140,7 +140,7 @@ internal class Population
                     new(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 2),
                     new(uutisetUpperLeftCoordinate.X + 3, uutisetUpperLeftCoordinate.Y + 3),
             };
-            var availablePositions = new Position(availableCoordinates);
+            var availablePositions = new Position(availableCoordinates, board);
 
             return new Uutiset(availablePositions);
         }
