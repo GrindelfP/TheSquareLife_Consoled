@@ -1,11 +1,11 @@
 namespace TheSquareLife_Consoled;
 
-public struct BorderBlock
+internal struct BorderBlock
 {
-    public const string Vertical = "║";
-    public const string Horizontal = "═";
-    public const string RightUp = "╗";
-    public const string RightDown = "╝";
-    public const string LeftUp = "╔";
-    public const string LeftDown = "╚";
+    internal const string Vertical = "║";
+    internal const string Horizontal = "═";
+    internal const string RightUp = "╗";
+    internal const string RightDown = "╝";
+    internal const string LeftUp = "╔";
+    internal const string LeftDown = "╚";
 }

@@ -2,20 +2,8 @@ namespace TheSquareLife_Consoled;
 
 internal class Position
 {
-    public readonly HashSet<Coordinate> Coordinates;
+    internal readonly HashSet<Coordinate> Coordinates;
     private readonly Board _board;
-    
-    /*
-    public override bool Equals(object? obj)
-    {
-        var position = obj as Position;
-        if (position == null) return false;
-        if (Coordinates.Count != position.Coordinates.Count) return false;
-        var intersect = Coordinates.Intersect(position.Coordinates);
-        return intersect.Count() == position.Coordinates.Count;
-    }
-    */
-
     private Position? ShapeShifter(int horizontal, int vertical)
     {
         var newCoordinates = Coordinates.Select(it => new Coordinate(it.X + horizontal, it.Y + vertical)).ToList();
@@ -28,7 +16,7 @@ internal class Position
         return newCoordinatesFiltered.Count == Coordinates.Count ? new Position(newCoordinatesFiltered, _board) : null;
     }
     
-    public List<Position> PossibleMoveCoordinates()
+    internal List<Position> PossibleMoveCoordinates()
     {
         var list = new List<Position>();
         

@@ -11,7 +11,7 @@ internal class ConsoleBoardVisualizer : IVisualizer
         Console.WriteLine(_board.ToString());
     }
 
-    public ConsoleBoardVisualizer(Board board)
+    protected internal ConsoleBoardVisualizer(Board board)
     {
         _board = board;
     }

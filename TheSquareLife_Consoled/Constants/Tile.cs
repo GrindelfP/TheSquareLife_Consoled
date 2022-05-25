@@ -10,5 +10,5 @@ internal class Tile
         return $"{_color}{Symbol}{Colors.No}";
     }
 
-    internal Tile(string color) {_color = color;}
+    protected internal Tile(string color) {_color = color;}
 }

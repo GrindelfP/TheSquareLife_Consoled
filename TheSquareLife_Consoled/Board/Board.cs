@@ -2,12 +2,13 @@ using static TheSquareLife_Consoled.EntitySize;
 using static TheSquareLife_Consoled.BorderBlock;
 using static TheSquareLife_Consoled.FieldConstants;
 using static TheSquareLife_Consoled.Colors;
+
 namespace TheSquareLife_Consoled;
 
 internal class Board
 {
     private const int Padding = 2;
-    public BoardSize BoardSize { get; }
+    internal BoardSize BoardSize { get; }
     private readonly List<Coordinate> _coordinates;
     private readonly int _numberOfRowsWithPadding;
     private readonly int _numberOfColumnsWithPadding;
@@ -141,7 +142,7 @@ internal class Board
         }
     }
 
-    public Board(BoardSize boardSize)
+    protected internal Board(BoardSize boardSize)
     {
         BoardSize = boardSize;
         _numberOfRowsWithPadding = BoardSize.NumberOfRows + Padding;

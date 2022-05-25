@@ -130,7 +130,7 @@ internal class God
         _visualizer.Visualize(evolutionCycleNumber, extraMessage);
     }
     
-    public God()
+    protected internal God()
     {
         _numberOfCycles = NumberOfCycles();
         _board = new Board(new BoardSize(40, 40));

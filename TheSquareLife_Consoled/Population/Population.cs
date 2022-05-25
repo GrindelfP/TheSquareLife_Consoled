@@ -9,7 +9,7 @@ internal class Population
         private readonly List<Kuvat> _kuvatus;
         private readonly List<Coordinate> _coordinates = new();
 
-        public List<Entity> AliveEntities()
+        internal List<Entity> AliveEntities()
         {
             var entities = new List<Entity> { _uutiset };
             entities.AddRange(_kuvahakus);
@@ -22,7 +22,7 @@ internal class Population
             return aliveEntities;
         }
 
-        public List<EntityPosition> AliveEntitiesPositions()
+        internal List<EntityPosition> AliveEntitiesPositions()
         {
             var positions = new List<EntityPosition>();
             if (_uutiset.IsAlive) positions.Add(new EntityPosition(_uutiset.Position, _uutiset.Color));
@@ -38,9 +38,9 @@ internal class Population
             return positions;
         }
 
-        public int Size() => AliveEntities().Count;
+        internal int Size() => AliveEntities().Count;
 
-        public List<EntityPosition> EntityPositions()
+        internal List<EntityPosition> EntityPositions()
         {
             var positions = new List<EntityPosition> { new EntityPosition(_uutiset.Position, _uutiset.Color) };
             _kuvahakus.ForEach(it =>
@@ -55,7 +55,7 @@ internal class Population
             return positions;
         }
 
-        public static Population GeneratePopulation(int numberOfKuvahakus, int numberOfKuvatus, Board board)
+        internal static Population GeneratePopulation(int numberOfKuvahakus, int numberOfKuvatus, Board board)
         {
             var minSize = KuvahakuSize + KuvatSize + UutisetSize + 2;
             if (board.BoardSize.NumberOfRows < minSize) 
@@ -145,7 +145,7 @@ internal class Population
             return new Uutiset(availablePositions);
         }
 
-        public Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)
+        private Population(Uutiset uutiset, List<Kuvahaku> kuvahakus, List<Kuvat> kuvatus)
         {
             _uutiset = uutiset;
             _kuvahakus = kuvahakus;
