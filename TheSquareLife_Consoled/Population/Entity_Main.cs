@@ -16,8 +16,11 @@ internal abstract partial class Entity
     internal void Move()
     {
         var positions = Position.PossibleMoveCoordinates();
-        var randomElementIndex = new Random().Next(0, positions.Count);
-        Position = positions[randomElementIndex];
+        if (positions.Count != 0)
+        {
+            var randomElementIndex = new Random().Next(0, positions.Count);
+            Position = positions[randomElementIndex];
+        }
     }
     
     protected internal Entity(Position position)

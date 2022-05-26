@@ -10,7 +10,7 @@ internal sealed class Kuvat : Entity
     internal Kuvat(Position position) : base(position)
     {
         Color = Green;
-        Size = EntitySize.KuvahakuSize;
+        Size = EntitySize.KuvatSize;
         Validate(Type, Size * Size);
     }
 }

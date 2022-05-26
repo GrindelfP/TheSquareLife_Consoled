@@ -17,21 +17,12 @@ internal class Board
     private List<Coordinate> InitCoordinates()
     {
         var coordinates = new List<Coordinate>();
-        var rowNumberEdge = BoardSize.NumberOfRows;
-        var columnNumberEdge = BoardSize.NumberOfColumns;
-
-        var yCoordinate = BoardSize.NumberOfRows;
-        var xCoordinate = BoardSize.NumberOfColumns;
-        while (rowNumberEdge > 0)
+        for (var y = 0; y < BoardSize.NumberOfRows; y++)
         {
-            while (columnNumberEdge > 0)
+            for (var x = 0; x < BoardSize.NumberOfColumns; x++)
             {
-                coordinates.Add(new Coordinate(xCoordinate + 1, yCoordinate + 1));
-                xCoordinate++;
-                columnNumberEdge--;
+                coordinates.Add(new Coordinate(x + 1, y + 1));
             }
-            yCoordinate++;
-            rowNumberEdge--;
         }
 
         return coordinates;
@@ -41,54 +32,38 @@ internal class Board
     private List<List<string>> InitBoard()
     {
         var board = new List<List<string>>();
-        var conditionOne = _numberOfRowsWithPadding;
-        var conditionTwo = _numberOfColumnsWithPadding;
-        var rowNumber = 0;
-        var positionInRow = 0;
-
-        while (conditionOne > 0)
+        for (var rowNumber = 0; rowNumber < _numberOfRowsWithPadding; rowNumber++)
         {
-            while (conditionTwo > 0)
+            board.Add(new List<string>());
+            for (var positionInRow = 0; positionInRow < _numberOfColumnsWithPadding; positionInRow++)
             {
                 if (rowNumber == 0)
                 {
                     HorizontalBorder(LeftUp, RightUp, rowNumber, positionInRow, board);
-                    positionInRow++;
-                    conditionTwo--;
                 }
 
                 else if (rowNumber == _numberOfRowsWithPadding - 1)
                 {
                     HorizontalBorder(LeftDown, RightDown, rowNumber, positionInRow, board);
-                    positionInRow++;
-                    conditionTwo--;
                 }
 
                 else if (positionInRow == 0)
                 {
-                    board[rowNumber].Insert(positionInRow, $"{Vertical} {Gap}");
-                    positionInRow++;
-                    conditionTwo--;
+                    board[rowNumber].Insert(positionInRow, $"{Vertical}{Gap}");
                 }
 
                 else if (positionInRow == _numberOfColumnsWithPadding - 1)
                 {
                     board[rowNumber].Insert(positionInRow, Vertical);
-                    positionInRow++;
-                    conditionTwo--;
                 }
                 
                 else
                 {
                     board[rowNumber].Insert(positionInRow, $"{new BoardTile()}");
-                    positionInRow++;
-                    conditionTwo--;
                 }
             }
-            rowNumber++;
-            conditionOne--;
         }
-        
+    
         return board;
     }
 
@@ -100,7 +75,7 @@ internal class Board
         // reset the Board
         _coordinates.ForEach(coordinate =>
         {
-            _boardState[coordinate.Y][coordinate.X] = new Tile(Green).ToString();
+            _boardState[coordinate.Y][coordinate.X] = new Tile(Grey).ToString();
         });
         
         entityPositions.ForEach(entityPosition =>
@@ -132,7 +107,7 @@ internal class Board
         {
             board[rowNumber].Insert(positionInRow, left + Horizontal);
         }
-        if (positionInRow == _numberOfColumnsWithPadding - 1)
+        else if (positionInRow == _numberOfColumnsWithPadding - 1)
         {
             board[rowNumber].Insert(positionInRow, right);
         }
@@ -141,14 +116,17 @@ internal class Board
             board[rowNumber].Insert(positionInRow, Horizontal + Horizontal + Horizontal);    
         }
     }
-
+    
+    
+    
     protected internal Board(BoardSize boardSize)
     {
         BoardSize = boardSize;
         _numberOfRowsWithPadding = BoardSize.NumberOfRows + Padding;
-        _coordinates = InitCoordinates();
         _numberOfColumnsWithPadding = BoardSize.NumberOfColumns + Padding;
+        _coordinates = InitCoordinates();
         _boardState = InitBoard();
+        
         if (BoardSize.NumberOfRows % MinEntityAreaSize != 0)
             throw new Exception(
                 $"Number of rows must be a multiple of the minimum size of the entity area of {MinEntityAreaSize}");

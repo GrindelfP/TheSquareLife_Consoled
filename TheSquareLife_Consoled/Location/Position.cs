@@ -6,13 +6,17 @@ internal class Position
     private readonly Board _board;
     private Position? ShapeShifter(int horizontal, int vertical)
     {
-        var newCoordinates = Coordinates.Select(it => new Coordinate(it.X + horizontal, it.Y + vertical)).ToList();
-        var newCoordinatesFiltered = new HashSet<Coordinate>();
-        newCoordinates.ForEach(it =>
+        var newCoordinates = new List<Coordinate>();
+        foreach (var coordinate in Coordinates)
         {
-            if (it.OnBoard(_board) && (_board.TileIsEmpty(it) || Coordinates.Contains(it)))
-                newCoordinatesFiltered.Add(it);
-        });
+            newCoordinates.Add(new Coordinate(coordinate.X + horizontal, coordinate.Y + vertical));
+        }
+        var newCoordinatesFiltered = new HashSet<Coordinate>();
+        foreach (var newCoordinate in newCoordinates)
+        {
+            if (newCoordinate.OnBoard(_board) && (_board.TileIsEmpty(newCoordinate) || Coordinates.Contains(newCoordinate)))
+                newCoordinatesFiltered.Add(newCoordinate);
+        }
         return newCoordinatesFiltered.Count == Coordinates.Count ? new Position(newCoordinatesFiltered, _board) : null;
     }
     

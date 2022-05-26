@@ -10,7 +10,7 @@ internal sealed class Uutiset : Entity
     internal Uutiset(Position position) : base(position)
     {
         Color = Red;
-        Size = EntitySize.KuvahakuSize;
+        Size = EntitySize.UutisetSize;
         Validate(Type, Size * Size);
     }
 }

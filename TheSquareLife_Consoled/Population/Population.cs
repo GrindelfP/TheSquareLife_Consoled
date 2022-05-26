@@ -8,6 +8,7 @@ internal class Population
         private readonly List<Kuvahaku> _kuvahakus;
         private readonly List<Kuvat> _kuvatus;
         private readonly List<Coordinate> _coordinates = new();
+        //private readonly int _numberOfAliveEntities;
 
         internal List<Entity> AliveEntities()
         {
@@ -20,6 +21,11 @@ internal class Population
                 if (it.IsAlive) aliveEntities.Add(it);
             });
             return aliveEntities;
+        }
+
+        public override string ToString()
+        {
+            return $"Population size is {AliveEntities().Count}";
         }
 
         internal List<EntityPosition> AliveEntitiesPositions()
@@ -108,7 +114,7 @@ internal class Population
             {
                 var coordinate = areas[random.Next(0, areas.Count)];
                 areas.Remove(coordinate);
-                var shiftedCorner = new Coordinate(random.Next(0, 2), random.Next(0, 2));
+                var shiftedCorner = new Coordinate(coordinate.X + random.Next(0, 2), coordinate.Y + random.Next(0, 2));
                 var availableCoordinates = new HashSet<Coordinate>
                 {
                     new(shiftedCorner.X + 1, shiftedCorner.Y + 1),

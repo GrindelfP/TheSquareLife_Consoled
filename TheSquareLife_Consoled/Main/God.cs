@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using TheSquareLife_Consoled.Visualization;
 
 namespace TheSquareLife_Consoled;
@@ -31,14 +32,14 @@ internal class God
 
     private void StartEvolution()
     {
-        var iteration = _numberOfCycles;
-        while (iteration > 0)
+        //var numberOfCycles = _numberOfCycles;
+        for (var cycleNumber = 0; cycleNumber < _numberOfCycles; cycleNumber++)
         {
-            EvolutionCycle(iteration - iteration + 1);
-            iteration--;
+            EvolutionCycle(cycleNumber);
         }
     }
 
+    [SuppressMessage("ReSharper.DPA", "DPA0002: Excessive memory allocations in SOH", MessageId = "type: System.String")]
     private void EvolutionCycle(int evolutionCycleNumber) 
     {
         // 1. command entities to move        
