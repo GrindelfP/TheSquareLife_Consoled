@@ -7,6 +7,7 @@ internal abstract partial class Entity
     private Guid Id { get; }
     internal abstract string Color { get; }
     internal abstract int Size { get; set; }
+    internal abstract string GType { get; }
 
     protected void Validate(string entityType, int area)
     {

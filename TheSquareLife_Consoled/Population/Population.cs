@@ -8,7 +8,6 @@ internal class Population
         private readonly List<Kuvahaku> _kuvahakus;
         private readonly List<Kuvat> _kuvatus;
         private readonly List<Coordinate> _coordinates = new();
-        //private readonly int _numberOfAliveEntities;
 
         internal List<Entity> AliveEntities()
         {
@@ -23,9 +22,35 @@ internal class Population
             return aliveEntities;
         }
 
+        internal List<int> GetNumberOfAliveEntities()
+        {
+            var aliveEntities = new List<int>();
+            for (var iterator = 0; iterator < 3; iterator++)
+            {
+                aliveEntities.Add(0);
+            }
+            AliveEntities().ForEach(entity =>
+            {
+                switch (entity.GType)
+                {
+                    case Kuvahaku.Type:
+                        aliveEntities[0]++;
+                        break;
+                    case Kuvat.Type:
+                        aliveEntities[1]++;
+                        break;
+                    case Uutiset.Type:
+                        aliveEntities[2]++;
+                        break;
+                }
+            });
+
+            return aliveEntities;
+        }
+
         public override string ToString()
         {
-            return $"Population size is {AliveEntities().Count}";
+            return $"Population size is {GetNumberOfAliveEntities()[0] + GetNumberOfAliveEntities()[1] + GetNumberOfAliveEntities()[2]}. There are {GetNumberOfAliveEntities()[0]} Kuvahakus, {GetNumberOfAliveEntities()[1]} Kuvatus, and {GetNumberOfAliveEntities()[2]} Uutiset alive on the board.";
         }
 
         internal List<EntityPosition> AliveEntitiesPositions()

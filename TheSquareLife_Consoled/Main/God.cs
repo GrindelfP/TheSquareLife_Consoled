@@ -3,43 +3,70 @@ using TheSquareLife_Consoled.Visualization;
 
 namespace TheSquareLife_Consoled;
 
-internal class God
+internal class God : IIterator
 {
     private readonly Board _board;
     private readonly Population _population;
     private readonly IVisualizer _visualizer;
     private readonly int _numberOfCycles;
 
-    private static int NumberOfCycles()
+    public int GetNumberOfIterations(string type)
     {
-        Console.Write("How many cycles should take place -> ");
-        var numberOfCycles = 0;
+        var numberOfIterations = 0;
         var flag = true;
         while (flag)
         {
+            Console.Write($"How many {type} should take place -> ");
             try
             {
-                numberOfCycles = Convert.ToInt32(Console.ReadLine());
-                flag = false;
+                numberOfIterations = Convert.ToInt32(Console.ReadLine());
             }
             catch
             {
                 Console.WriteLine("You are supposed to use integers!");
             }
+            switch (type)
+            {
+                case Kuvahaku.Type when numberOfIterations < 10:
+                    Console.WriteLine($"There must be at least 10 {type}");
+                    break;
+                case Kuvahaku.Type when numberOfIterations > 30:
+                    Console.WriteLine($"There must be not more than 30 {type}");
+                    break;
+                case Kuvat.Type when numberOfIterations < 8:
+                    Console.WriteLine($"There must be at least 8 {type}");
+                    break;
+                case Kuvat.Type when numberOfIterations > 25:
+                    Console.WriteLine($"There must be not more than 25 {type}");
+                    break;
+                case "cycles" when numberOfIterations < 2:
+                    Console.WriteLine($"There must be at least 2 {type}");
+                    break;
+                case "cycles" when numberOfIterations > 40:
+                    Console.WriteLine($"There must be not more than 40 {type}");
+                    break;
+                default:
+                    flag = false;
+                    break;
+            }
+            
         }
-        return numberOfCycles;
+        
+        return numberOfIterations;
     }
 
+    [SuppressMessage("ReSharper.DPA", "DPA0002: Excessive memory allocations in SOH", MessageId = "type: System.String")]
     private void StartEvolution()
     {
-        //var numberOfCycles = _numberOfCycles;
         for (var cycleNumber = 0; cycleNumber < _numberOfCycles; cycleNumber++)
         {
             EvolutionCycle(cycleNumber);
+            if (cycleNumber == _numberOfCycles - 1) FinalizeEvolution();
         }
     }
 
     [SuppressMessage("ReSharper.DPA", "DPA0002: Excessive memory allocations in SOH", MessageId = "type: System.String")]
+    
     private void EvolutionCycle(int evolutionCycleNumber) 
     {
         // 1. command entities to move        
@@ -130,12 +157,16 @@ internal class God
         _board.Update(_population.AliveEntitiesPositions());
         _visualizer.Visualize(evolutionCycleNumber, extraMessage);
     }
-    
+    private void FinalizeEvolution()
+    {
+        _visualizer.Finalize(_population.GetNumberOfAliveEntities(), _board);
+    }
+
     protected internal God()
     {
-        _numberOfCycles = NumberOfCycles();
+        _numberOfCycles = GetNumberOfIterations("cycles");
         _board = new Board(new BoardSize(40, 40));
-        _population = Population.GeneratePopulation(25, 20, _board);
+        _population = Population.GeneratePopulation(GetNumberOfIterations(Kuvahaku.Type), GetNumberOfIterations(Kuvat.Type), _board);
         _visualizer = new ConsoleBoardVisualizer(_board);
         UpdateBoard(-1);
         StartEvolution();

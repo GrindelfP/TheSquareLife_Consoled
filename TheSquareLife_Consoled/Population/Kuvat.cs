@@ -4,7 +4,10 @@ namespace TheSquareLife_Consoled;
 
 internal sealed class Kuvat : Entity
 {
-    private const string Type = "Kuvat";
+    internal const string Type = "Kuvat";
+
+    internal override string GType => Type;
+
     internal override string Color { get; }
     internal override int Size { get; set; }
     internal Kuvat(Position position) : base(position)

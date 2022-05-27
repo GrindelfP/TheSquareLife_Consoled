@@ -12,7 +12,7 @@ internal class Board
     private readonly List<Coordinate> _coordinates;
     private readonly int _numberOfRowsWithPadding;
     private readonly int _numberOfColumnsWithPadding;
-    private readonly List<List<string>> _boardState;
+    internal readonly List<List<string>> _boardState;
 
     private List<Coordinate> InitCoordinates()
     {
