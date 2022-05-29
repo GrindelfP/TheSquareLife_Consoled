@@ -3,14 +3,14 @@ using TheSquareLife_Consoled.Visualization;
 
 namespace TheSquareLife_Consoled;
 
-internal class God : IIterator
+internal class God : IUserInputGetter<int>
 {
     private readonly Board _board;
     private readonly Population _population;
     private readonly IVisualizer _visualizer;
     private readonly int _numberOfCycles;
 
-    public int GetNumberOfIterations(string type)
+    public int GetUserNumberOf(string type)
     {
         var numberOfIterations = 0;
         var flag = true;
@@ -120,9 +120,9 @@ internal class God : IIterator
                     {
                         case Kuvahaku:
                             overlappingEntity.IsAlive = false;
-                            // Uutiset overlaps with Kuvat, and they occupy 2 or more common coordinates
                             break;
                         case Kuvat:
+                            // Uutiset overlaps with Kuvat, and they occupy 2 or more common coordinates
                             if (entity.CommonCoordinates(overlappingEntity).Count >= 2)
                                 overlappingEntity.IsAlive = false;
                             break;
@@ -135,7 +135,7 @@ internal class God : IIterator
                 // But we should filter out Uutiset (if it survived)
                 else
                 {
-                    var overlappingAliensWithoutUutiset = new List<Entity>(); 
+                    var overlappingAliensWithoutUutiset = new List<Entity>(); // TODO: use .Where or .FindAll
                     overlappingAliens.ForEach(it =>
                     {
                         if (it is not Uutiset) overlappingAliensWithoutUutiset.Add(it);
@@ -164,9 +164,9 @@ internal class God : IIterator
 
     protected internal God()
     {
-        _numberOfCycles = GetNumberOfIterations("cycles");
+        _numberOfCycles = GetUserNumberOf("cycles");
         _board = new Board(new BoardSize(40, 40));
-        _population = Population.GeneratePopulation(GetNumberOfIterations(Kuvahaku.Type), GetNumberOfIterations(Kuvat.Type), _board);
+        _population = Population.GeneratePopulation(GetUserNumberOf(Kuvahaku.Type), GetUserNumberOf(Kuvat.Type), _board);
         _visualizer = new ConsoleBoardVisualizer(_board);
         UpdateBoard(-1);
         StartEvolution();
