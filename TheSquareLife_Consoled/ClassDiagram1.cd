@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Interfaces">
+    <Position X="0.5" Y="0.5" Height="0.317" Width="1.342" />
+  </Comment>
+  <Comment CommentText="Program">
+    <Position X="2.425" Y="0.5" Height="0.317" Width="1.367" />
+  </Comment>
+  <Comment CommentText="Game Processor">
+    <Position X="4.283" Y="0.5" Height="0.317" Width="1.45" />
+  </Comment>
+  <Comment CommentText="Entity Realization">
+    <Position X="6.1" Y="0.5" Height="0.317" Width="1.367" />
+  </Comment>
+  <Comment CommentText="Visualization realization">
+    <Position X="9.5" Y="0.55" Height="0.317" Width="1.575" />
+  </Comment>
+  <Comment CommentText="Locator of entities">
+    <Position X="11.242" Y="0.55" Height="0.317" Width="1.367" />
+  </Comment>
+  <Comment CommentText="Constants">
+    <Position X="0.5" Y="8.501" Height="0.317" Width="1.367" />
+  </Comment>
+  <Comment CommentText="Board realization">
+    <Position X="9.575" Y="8.518" Height="0.317" Width="1.367" />
+  </Comment>
+  <Class Name="TheSquareLife_Consoled.Program">
+    <Position X="2.5" Y="1.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Entity">
+    <Position X="6" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQACAAAAAICAiAAgAAAAAAAAAAAAAAAAAAAAgAAEAAA=</HashCode>
+      <FileName>Population\Entity_Main.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Kuvahaku">
+    <Position X="4.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAgAAEAAA=</HashCode>
+      <FileName>Population\Kuvahaku.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Kuvat">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAgAAEAAA=</HashCode>
+      <FileName>Population\Kuvat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Uutiset">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAgAAEAAA=</HashCode>
+      <FileName>Population\Uutiset.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Population">
+    <Position X="7.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAiAAAAIgAAEAAAEAEAAIQAAECAAAAAAACAAAAE=</HashCode>
+      <FileName>Population\Population.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.God">
+    <Position X="4.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAABACACAAAEAAAEAFAAAAAAAEAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Main\God.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Visualization.ConsoleBoardVisualizer">
+    <Position X="9.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAEAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visualization\ConsoleBoardVisualizer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Coordinate">
+    <Position X="11.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAgAAAAAAAAAAAAIAAAAAAAAAAYAA=</HashCode>
+      <FileName>Location\Coordinate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Position">
+    <Position X="13" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAEAAQAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Location\Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.EntityPosition">
+    <Position X="14.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Location\EntityPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.BoardTile">
+    <Position X="0.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Constants\BoardTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Tile">
+    <Position X="0.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAEAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Constants\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.Board">
+    <Position X="9.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAYAAAEAIAABAEAAQABAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Board\Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheSquareLife_Consoled.BoardSize">
+    <Position X="11.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Board\BoardSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="TheSquareLife_Consoled.BorderBlock">
+    <Position X="2.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAAAABAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Constants\BorderBlock.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TheSquareLife_Consoled.Colors">
+    <Position X="4" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAgAAAAAAAAAAACAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Constants\Colors.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TheSquareLife_Consoled.EntitySize">
+    <Position X="5.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAABABAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Constants\EntitySize.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TheSquareLife_Consoled.FieldConstants">
+    <Position X="7.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Constants\FieldConstants.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="TheSquareLife_Consoled.IEntitiesRelationships">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Population\IEntitiesRelationships.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TheSquareLife_Consoled.Visualization.IVisualizer">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visualization\IVisualizer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TheSquareLife_Consoled.Visualization.IIterator">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visualization\IIterator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
