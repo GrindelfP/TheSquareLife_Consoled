@@ -31,15 +31,15 @@ internal class Population
             }
             AliveEntities().ForEach(entity =>
             {
-                switch (entity.GType)
+                switch (entity.Type)
                 {
-                    case Kuvahaku.Type:
+                    case nameof(Kuvahaku):
                         aliveEntities[0]++;
                         break;
-                    case Kuvat.Type:
+                    case nameof(Kuvat):
                         aliveEntities[1]++;
                         break;
-                    case Uutiset.Type:
+                    case nameof(Uutiset):
                         aliveEntities[2]++;
                         break;
                 }
@@ -50,7 +50,7 @@ internal class Population
 
         public override string ToString()
         {
-            return $"Population size is {GetNumberOfAliveEntities()[0] + GetNumberOfAliveEntities()[1] + GetNumberOfAliveEntities()[2]}. There are {GetNumberOfAliveEntities()[0]} Kuvahakus, {GetNumberOfAliveEntities()[1]} Kuvatus, and {GetNumberOfAliveEntities()[2]} Uutiset alive on the board.";
+            return $"Population size is {Size()}. There are {GetNumberOfAliveEntities()[0]} Kuvahakus, {GetNumberOfAliveEntities()[1]} Kuvatus, and {GetNumberOfAliveEntities()[2]} Uutiset alive on the board.";
         }
 
         internal List<EntityPosition> AliveEntitiesPositions()
@@ -71,24 +71,9 @@ internal class Population
 
         internal int Size() => AliveEntities().Count;
 
-        internal List<EntityPosition> EntityPositions()
-        {
-            var positions = new List<EntityPosition> { new EntityPosition(_uutiset.Position, _uutiset.Color) };
-            _kuvahakus.ForEach(it =>
-            {
-                positions.Add(new EntityPosition(it.Position, it.Color));
-            });
-            _kuvatus.ForEach(it =>
-            {
-                positions.Add(new EntityPosition(it.Position, it.Color));
-            });
-
-            return positions;
-        }
-
         internal static Population GeneratePopulation(int numberOfKuvahakus, int numberOfKuvatus, Board board)
         {
-            var minSize = KuvahakuSize + KuvatSize + UutisetSize + 2;
+            const int minSize = KuvahakuSize + KuvatSize + UutisetSize + 2;
             if (board.BoardSize.NumberOfRows < minSize) 
             { 
                 throw new Exception($"Board height must be greater than {minSize}"); 
@@ -97,29 +82,29 @@ internal class Population
             { 
                 throw new Exception($"Board length must be greater than {minSize}"); 
             }
-            var areas = new List<Coordinate>();
-            for (var rowIndex = 1; rowIndex < board.BoardSize.NumberOfRows; rowIndex += MinEntityAreaSize)
+            var slots = new List<Coordinate>();
+            for (var rowIndex = 1; rowIndex < board.BoardSize.NumberOfRows; rowIndex += MinEntityAreaSideSize)
             {
-                for (var positionInRow = 1; positionInRow < board.BoardSize.NumberOfColumns; positionInRow += MinEntityAreaSize)
+                for (var positionInRow = 1; positionInRow < board.BoardSize.NumberOfColumns; positionInRow += MinEntityAreaSideSize)
                 {
-                    areas.Add(new Coordinate(positionInRow, rowIndex));
+                    slots.Add(new Coordinate(positionInRow, rowIndex));
                 }
             }
-            var uutiset = InitUutiset(areas, board);
-            var kuvahakus = InitKuvahakus(numberOfKuvahakus, areas, board);
-            var kuvatus = InitKuvatus(numberOfKuvatus, areas, board);
+            var uutiset = InitUutiset(slots, board);
+            var kuvahakus = InitKuvahakus(numberOfKuvahakus, slots, board);
+            var kuvatus = InitKuvatus(numberOfKuvatus, slots, board);
 
             return new Population(uutiset, kuvahakus, kuvatus);
         }
 
-        private static List<Kuvahaku> InitKuvahakus(int numberOfKuvahakus, List<Coordinate> areas, Board board)
+        private static List<Kuvahaku> InitKuvahakus(int numberOfKuvahakus, List<Coordinate> slots, Board board)
         {
             var random = new Random();
             var kuvahakus = new List<Kuvahaku>();
             while (numberOfKuvahakus > 0)
             {
-                var coordinate = areas[random.Next(0, areas.Count)];
-                areas.Remove(coordinate);
+                var coordinate = slots[random.Next(0, slots.Count)];
+                slots.Remove(coordinate);
                 var availableCoordinates = new HashSet<Coordinate>
                 {
                     new(coordinate.X + random.Next(1, 4), coordinate.Y + random.Next(1, 4))
@@ -131,15 +116,15 @@ internal class Population
 
             return kuvahakus;
         }
-        private static List<Kuvat> InitKuvatus(int numberOfKuvatus, List<Coordinate> areas, Board board)
+        private static List<Kuvat> InitKuvatus(int numberOfKuvatus, List<Coordinate> slots, Board board)
         {
             var random = new Random();
             var kuvatus = new List<Kuvat>();
             while (numberOfKuvatus > 0)
             {
-                var coordinate = areas[random.Next(0, areas.Count)];
-                areas.Remove(coordinate);
-                var shiftedCorner = new Coordinate(coordinate.X + random.Next(0, 2), coordinate.Y + random.Next(0, 2));
+                var corner = slots[random.Next(0, slots.Count)]; 
+                slots.Remove(corner);
+                var shiftedCorner = new Coordinate(corner.X + random.Next(0, 2), corner.Y + random.Next(0, 2));
                 var availableCoordinates = new HashSet<Coordinate>
                 {
                     new(shiftedCorner.X + 1, shiftedCorner.Y + 1),
@@ -154,11 +139,11 @@ internal class Population
 
             return kuvatus;
         }
-        private static Uutiset InitUutiset(List<Coordinate> areas, Board board)
+        private static Uutiset InitUutiset(List<Coordinate> slots, Board board)
         {
-            var uutisetIndex = new Random().Next(0, areas.Count);
-            var uutisetUpperLeftCoordinate = areas[uutisetIndex];
-            areas.Remove(uutisetUpperLeftCoordinate);
+            var uutisetIndex = new Random().Next(0, slots.Count);
+            var uutisetUpperLeftCoordinate = slots[uutisetIndex];
+            slots.Remove(uutisetUpperLeftCoordinate);
             var availableCoordinates = new HashSet<Coordinate>
             {
                     new(uutisetUpperLeftCoordinate.X + 1, uutisetUpperLeftCoordinate.Y + 1),

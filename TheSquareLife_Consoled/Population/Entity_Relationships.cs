@@ -9,7 +9,7 @@ internal abstract partial class Entity : IEntitiesRelationships
     }
     public HashSet<Coordinate> CommonCoordinates(Entity overlappingEntity) 
         => Position.Coordinates.Intersect(overlappingEntity.Position.Coordinates).ToHashSet();
-    public bool OverlapWithAlien(Entity otherEntity) // FLAG: may not work because of type comparison
+    public bool OverlapWithAlien(Entity otherEntity)
     {
         return GetType() != otherEntity.GetType() && CommonCoordinates(otherEntity).Count != 0;
     }

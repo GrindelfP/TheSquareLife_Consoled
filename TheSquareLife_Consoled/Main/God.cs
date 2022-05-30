@@ -27,16 +27,16 @@ internal class God : IUserInputGetter<int>
             }
             switch (type)
             {
-                case Kuvahaku.Type when numberOfIterations < 10:
+                case nameof(Kuvahaku) when numberOfIterations < 10:
                     Console.WriteLine($"There must be at least 10 {type}");
                     break;
-                case Kuvahaku.Type when numberOfIterations > 30:
+                case nameof(Kuvahaku) when numberOfIterations > 30:
                     Console.WriteLine($"There must be not more than 30 {type}");
                     break;
-                case Kuvat.Type when numberOfIterations < 8:
+                case nameof(Kuvat) when numberOfIterations < 8:
                     Console.WriteLine($"There must be at least 8 {type}");
                     break;
-                case Kuvat.Type when numberOfIterations > 25:
+                case nameof(Kuvat) when numberOfIterations > 25:
                     Console.WriteLine($"There must be not more than 25 {type}");
                     break;
                 case "cycles" when numberOfIterations < 2:
@@ -64,8 +64,6 @@ internal class God : IUserInputGetter<int>
             if (cycleNumber == _numberOfCycles - 1) FinalizeEvolution();
         }
     }
-
-    [SuppressMessage("ReSharper.DPA", "DPA0002: Excessive memory allocations in SOH", MessageId = "type: System.String")]
     
     private void EvolutionCycle(int evolutionCycleNumber) 
     {
@@ -135,11 +133,7 @@ internal class God : IUserInputGetter<int>
                 // But we should filter out Uutiset (if it survived)
                 else
                 {
-                    var overlappingAliensWithoutUutiset = new List<Entity>(); // TODO: use .Where or .FindAll
-                    overlappingAliens.ForEach(it =>
-                    {
-                        if (it is not Uutiset) overlappingAliensWithoutUutiset.Add(it);
-                    }); 
+                    var overlappingAliensWithoutUutiset = overlappingAliens.FindAll(it => it is not Uutiset);
                     overlappingAliensWithoutUutiset.ForEach(it =>
                     {
                         it.IsAlive = false;
@@ -166,7 +160,7 @@ internal class God : IUserInputGetter<int>
     {
         _numberOfCycles = GetUserNumberOf("cycles");
         _board = new Board(new BoardSize(40, 40));
-        _population = Population.GeneratePopulation(GetUserNumberOf(Kuvahaku.Type), GetUserNumberOf(Kuvat.Type), _board);
+        _population = Population.GeneratePopulation(GetUserNumberOf(nameof(Kuvahaku)), GetUserNumberOf(nameof(Kuvat)), _board);
         _visualizer = new ConsoleBoardVisualizer(_board);
         UpdateBoard(-1);
         StartEvolution();

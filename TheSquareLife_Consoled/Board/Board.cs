@@ -12,7 +12,7 @@ internal class Board
     private readonly List<Coordinate> _coordinates;
     private readonly int _numberOfRowsWithPadding;
     private readonly int _numberOfColumnsWithPadding;
-    internal readonly List<List<string>> _boardState;
+    private readonly List<List<string>> _boardState;
 
     private List<Coordinate> InitCoordinates()
     {
@@ -27,7 +27,6 @@ internal class Board
 
         return coordinates;
     }
-
     
     private List<List<string>> InitBoard()
     {
@@ -89,16 +88,16 @@ internal class Board
     
     public override string ToString()
     {
-        var _ = "";
+        var board = "";
         _boardState.ForEach(row =>
         {
             row.ForEach(element =>
             {
-                _ += element;
+                board += element;
             });
-            _ += "\n";
+            board += "\n";
         });
-        return _;
+        return board;
     }
 
     private void HorizontalBorder(string left, string right, int rowNumber, int positionInRow, List<List<string>> board)
@@ -117,8 +116,6 @@ internal class Board
         }
     }
     
-    
-    
     protected internal Board(BoardSize boardSize)
     {
         BoardSize = boardSize;
@@ -127,11 +124,11 @@ internal class Board
         _coordinates = InitCoordinates();
         _boardState = InitBoard();
         
-        if (BoardSize.NumberOfRows % MinEntityAreaSize != 0)
+        if (BoardSize.NumberOfRows % MinEntityAreaSideSize != 0)
             throw new Exception(
-                $"Number of rows must be a multiple of the minimum size of the entity area of {MinEntityAreaSize}");
-        if (BoardSize.NumberOfColumns % MinEntityAreaSize != 0)
+                $"Number of rows must be a multiple of the minimum size of the entity area of {MinEntityAreaSideSize}");
+        if (BoardSize.NumberOfColumns % MinEntityAreaSideSize != 0)
             throw new Exception(
-                $"Number of columns must be a multiple of the minimum size of the entity area of {MinEntityAreaSize}");
+                $"Number of columns must be a multiple of the minimum size of the entity area of {MinEntityAreaSideSize}");
     }
 }

@@ -11,12 +11,9 @@ internal class Position
         {
             newCoordinates.Add(new Coordinate(coordinate.X + horizontal, coordinate.Y + vertical));
         }
-        var newCoordinatesFiltered = new HashSet<Coordinate>();
-        foreach (var newCoordinate in newCoordinates)
-        {
-            if (newCoordinate.OnBoard(_board) && (_board.TileIsEmpty(newCoordinate) || Coordinates.Contains(newCoordinate)))
-                newCoordinatesFiltered.Add(newCoordinate);
-        }
+        var newCoordinatesFiltered = newCoordinates.FindAll(newCoordinate => 
+            newCoordinate.OnBoard(_board) && (_board.TileIsEmpty(newCoordinate) || Coordinates.Contains(newCoordinate))
+            ).ToHashSet();
         return newCoordinatesFiltered.Count == Coordinates.Count ? new Position(newCoordinatesFiltered, _board) : null;
     }
     

@@ -3,7 +3,7 @@ namespace TheSquareLife_Consoled;
 internal class Tile
 {
     private readonly string _color;
-    internal const string Symbol = FieldConstants.Tile + FieldConstants.Gap;
+    private const string Symbol = FieldConstants.Tile + FieldConstants.Gap;
 
     public override string ToString()
     {

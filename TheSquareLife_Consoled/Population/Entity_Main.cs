@@ -4,10 +4,12 @@ internal abstract partial class Entity
 {
     internal Position Position { get; private set; }
     internal bool IsAlive = true;
+    /*
     private Guid Id { get; }
+    */
     internal abstract string Color { get; }
     internal abstract int Size { get; set; }
-    internal abstract string GType { get; }
+    internal string Type => GetType().Name;
 
     protected void Validate(string entityType, int area)
     {
@@ -27,6 +29,8 @@ internal abstract partial class Entity
     protected internal Entity(Position position)
     {
         Position = position;
+        /*
         Id = Guid.NewGuid();
+    */
     }
 }

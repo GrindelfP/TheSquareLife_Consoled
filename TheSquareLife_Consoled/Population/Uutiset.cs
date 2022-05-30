@@ -3,8 +3,6 @@ namespace TheSquareLife_Consoled;
 
 internal sealed class Uutiset : Entity
 {
-    internal const string Type = "Uutiset";
-    internal override string GType => Type;
     internal override string Color { get; }
     internal override int Size { get; set; }
 
