@@ -9,7 +9,9 @@ internal class God : IUserInputGetter<int>
     private readonly Population _population;
     private readonly IVisualizer _visualizer;
     private readonly int _numberOfCycles;
+    private static readonly God GodWhoIs = new();
 
+    public static God I_Am() => GodWhoIs;
     public int GetUserNumberOf(string type)
     {
         var numberOfIterations = 0;
